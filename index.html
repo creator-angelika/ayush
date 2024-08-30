@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Three.js with HDRI, GLB Model, and Pose</title>
+    <title>Three.js with HDRI, GLB Model, and AR/VR</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="favicon.jpg" type="image/x-icon">
 </head>
@@ -13,6 +13,7 @@
     </header>
     <main>
         <div id="container3d"></div>
+
         <div id="sliderContainer">
             <label for="cameraXSlider">Camera X Position:</label>
             <input type="range" id="cameraXSlider" min="-500" max="500" value="0">
@@ -25,6 +26,10 @@
             <label for="cameraZSlider">Camera Z Position:</label>
             <input type="range" id="cameraZSlider" min="100" max="1000" value="500">
             <span id="cameraZValue">500</span>
+        </div>
+
+        <div id="buttonContainer">
+            <button id="enterXR">Enter AR/VR Mode</button>
         </div>
     </main>
     <script type="module" src="main.js"></script>

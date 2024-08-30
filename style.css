@@ -57,3 +57,24 @@ header h1 {
   height: 100%;
   z-index: 0;
 }
+
+#buttonContainer {
+  position: absolute;
+  top: 200px; /* Adjust based on the height of the sliders */
+  right: 20px;
+  z-index: 2;
+}
+
+#buttonContainer button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+#buttonContainer button:hover {
+  background-color: #555;
+}

@@ -18,10 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1;
     renderer.outputEncoding = THREE.sRGBEncoding;
-    renderer.domElement.style.position = 'absolute';
-    renderer.domElement.style.top = '0';
-    renderer.domElement.style.left = '0';
-    renderer.domElement.style.zIndex = '1';
+    renderer.xr.enabled = true;  // Enable WebXR support
     document.getElementById("container3d").appendChild(renderer.domElement);
 
     const controls = new OrbitControls(camera, renderer.domElement);
@@ -55,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 });
 
-                model.scale.set(800, 800, 800);
+                model.scale.set(900, 900, 900);
                 model.position.y = -250;
                 model.position.z = -350;
                 scene.add(model);
@@ -70,15 +67,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Adjusted Lights
-    const topLight = new THREE.DirectionalLight(0xffffff, 1);  // Reduced intensity
+    const topLight = new THREE.DirectionalLight(0xffffff, 1);
     topLight.position.set(100, 100, 100);
     topLight.castShadow = true;
     scene.add(topLight);
 
-    const ambientLight = new THREE.AmbientLight(0x333333, 1);  // Reduced intensity
+    const ambientLight = new THREE.AmbientLight(0x333333, 1);
     scene.add(ambientLight);
-
-    
 
     // Camera Position Sliders Control
     const cameraXSlider = document.getElementById("cameraXSlider");
@@ -106,10 +101,42 @@ document.addEventListener("DOMContentLoaded", () => {
     cameraYSlider.addEventListener("input", updateCameraPosition);
     cameraZSlider.addEventListener("input", updateCameraPosition);
 
+    // WebXR setup and handle AR/VR Button
+    if (navigator.xr) {
+        // Check if immersive-vr is supported
+        navigator.xr.isSessionSupported('immersive-vr').then((supported) => {
+            const enterXRButton = document.getElementById('enterXR');
+            if (supported) {
+                // Enable button for immersive VR
+                enterXRButton.addEventListener('click', () => {
+                    navigator.xr.requestSession('immersive-vr').then((session) => {
+                        renderer.xr.setSession(session);
+                        session.addEventListener('end', onSessionEnd);
+                    }).catch((err) => {
+                        console.error("Failed to start XR session", err);
+                    });
+                });
+            } else {
+                // Disable the button if immersive VR is not supported
+                enterXRButton.disabled = true;
+                console.warn('Immersive VR not supported on this device');
+            }
+        }).catch((err) => {
+            console.error("Error checking session support", err);
+        });
+    } else {
+        console.warn('WebXR not available in this browser');
+    }
+
+    function onSessionEnd() {
+        console.log("VR session ended");
+    }
+
     function animate() {
-        requestAnimationFrame(animate);
-        controls.update();
-        renderer.render(scene, camera);
+        renderer.setAnimationLoop(() => {
+            controls.update();
+            renderer.render(scene, camera);
+        });
     }
 
     animate();
