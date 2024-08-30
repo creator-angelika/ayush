@@ -68,12 +68,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Adjusted Lights
-    const topLight = new THREE.DirectionalLight(0xffffff, 1);
+    const topLight = new THREE.DirectionalLight(0xffffff, 0.8);
     topLight.position.set(100, 100, 100);
     topLight.castShadow = true;
     scene.add(topLight);
 
-    const ambientLight = new THREE.AmbientLight(0x333333, 1);
+    const ambientLight = new THREE.AmbientLight(0x333333, 0.5);
     scene.add(ambientLight);
 
     // Camera Position Sliders Control
