@@ -25,14 +25,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Load HDR environment map for reflections and lighting
     new RGBELoader()
-        .setPath('environment/')
-        .load('env6.hdr', function (texture) {
-            texture.mapping = THREE.EquirectangularReflectionMapping;
-            scene.environment = texture;
-
-            // Load the GLB model after the environment is ready
-            loadModel();
-        });
+    .setPath('environment/')
+    .load('env6.hdr', function (texture) {
+        texture.mapping = THREE.EquirectangularReflectionMapping;
+        scene.environment = texture;
+        scene.background = texture;  // Set HDR as background
+        
+        renderer.toneMappingExposure = 2;  // Adjust exposure
+        loadModel();
+    });
 
     function loadModel() {
         const loader = new GLTFLoader();
