@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Adjusted Lights
-    const topLight = new THREE.DirectionalLight(0xffffff, 0.8);
+    const topLight = new THREE.DirectionalLight(0xffffff, 0.6);
     topLight.position.set(100, 100, 100);
     topLight.castShadow = true;
     scene.add(topLight);
