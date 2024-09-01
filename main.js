@@ -54,8 +54,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
 
                 model.scale.set(900, 900, 900);
-                model.position.y = -250;
-                model.position.z = -350;
+                model.position.y = -280;
+                model.position.z = -300;
                 scene.add(model);
             },
             function (xhr) {
